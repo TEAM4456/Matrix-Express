@@ -1,6 +1,10 @@
 var fs = require('fs');
 var path = require('path')
-var load = function (dir) {
+function extend(obj, src) {
+    Object.keys(src).forEach(function(key) { obj[key] = src[key]; });
+    return obj;
+}
+var load = function (dir, app, cdir="") {
     var loadlist = {}
     fs.readdirSync(dir).forEach(function (file)
     {
@@ -9,13 +13,13 @@ var load = function (dir) {
       {
         if (file.includes('.js'))
         {
-            loadlist[file.replace('.js', '')] = require("../"+dir + '/' + file);
+            loadlist["/"+cdir+file.replace('.js', '')] = require("../"+dir + '/' + file);
             console.log(file+" initialized");
         }
       }
       else if (stat.isDirectory())
       {
-        load(path.join(dir, file));
+        loadlist = extend(loadlist, load(path.join(dir, file), app, cdir+file+"/")); //Adds directory plugin list to original list to list all plugins
       }
     });
     return loadlist;

@@ -1,7 +1,7 @@
 {
-  "name": "matrixv2",
+  "name": "matrix-express",
   "version": "1.0.0",
-  "description": "A bot framework for nodejs, using discordjs API.",
+  "description": "A bot framework for nodejs, using expressjs API.",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -12,6 +12,6 @@
   "author": "DigitalForecast",
   "license": "MPL-2.0",
   "dependencies": {
-    "discord.js": "^11.2.1"
+    "express": "^4.16.2"
   }
 }
