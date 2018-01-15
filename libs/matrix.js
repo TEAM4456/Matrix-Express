@@ -1,6 +1,6 @@
 var fs = require('fs');
 var config = require('../config.json');
-var plugins = {};
+var routes = {};
 var libs = {};
 var direxists = function(path)
 {
@@ -10,46 +10,40 @@ var direxists = function(path)
         console.log("matrix: created required directory "+path);
     }
 }
-var getplugins = function()
+var getroutes = function()
 {
-    return plugins;
+    return routes;
 }
 var getlibs = function()
 {
     return libs;
 }
-var reloadPlugins = function()
-{
-    plugins = {}
-    var load = require('./load.js');
-    plugins = load("./plugins");
-}
 var initMatrix = function(app)
 {
-    direxists("./plugins");
+    direxists("./routes");
     direxists("./libs");
     var load = require('./load.js');
     libs = load("./libs", app);
     console.log("matrix: loaded all libraries");
-    plugins = load("./plugins", app);
-    plugins["/"] = plugins["/"+config.root]
-    plugins["/"+config.root] = undefined;
-    Object.keys(plugins).forEach(plugin =>
+    routes = load("./routes", app);
+    routes["/"] = routes["/"+config.root]
+    routes["/"+config.root] = undefined;
+    Object.keys(routes).forEach(route =>
     {
-        app.route(plugin)
+        app.route(route)
         .get(function (req, res) {
-            plugins[plugin].execute("get", app, req, res, libs);
+            routes[route].execute("get", app, req, res, libs);
         })
         .post(function (req, res) {
-            plugins[plugin].execute("post", app, req, res, libs);
+            routes[route].execute("post", app, req, res, libs);
         })
         .put(function (req, res) {
-            plugins[plugin].execute("put", app, req, res, libs);
+            routes[route].execute("put", app, req, res, libs);
         });
     });
-    console.log("matrix: loaded all plugins");
+    console.log("matrix: loaded all routes");
 }
 module.exports.initMatrix = initMatrix;
 module.exports.config = config;
-module.exports.plugins = plugins;
-module.exports.readPlugins = getplugins;
+module.exports.routes = routes;
+module.exports.readroutes = getroutes;
