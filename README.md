@@ -17,7 +17,7 @@ Add some routes in the plugins folder. ex: `https://example.com/example` would b
 MatrixV2 is designed to be modular. It scans for files in it's plugins directory, and indexes commands by filename. For example, a file named `ping.js` would be executable by going to the route `your.domain/ping`. The file must have a specific structure, with a function named `execute` and a module export for it. An example is shown below:
 
 ```
-var execute = function(type, req, res, libs)
+var execute = function(type, express, req, res, libs)
 {
     res.send("Pong!");
 }
