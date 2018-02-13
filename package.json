@@ -12,6 +12,9 @@
   "author": "DigitalForecast",
   "license": "MPL-2.0",
   "dependencies": {
-    "express": "^4.16.2"
+    "express": "^4.16.2",
+    "greenlock-express": "^2.0.12",
+    "request": "^2.83.0",
+    "request-promise-native": "^1.0.5"
   }
 }

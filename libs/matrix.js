@@ -27,7 +27,7 @@ var initMatrix = function(app)
     console.log("matrix: loaded all libraries");
     routes = load("./routes", app);
     routes["/"] = routes["/"+config.root]
-    routes["/"+config.root] = undefined;
+    delete routes["/"+config.root];
     Object.keys(routes).forEach(route =>
     {
         app.route(route)
@@ -41,6 +41,7 @@ var initMatrix = function(app)
             routes[route].execute("put", app, req, res, libs);
         });
     });
+    app.use('/static', require("express").static('static'));
     console.log("matrix: loaded all routes");
 }
 module.exports.initMatrix = initMatrix;
