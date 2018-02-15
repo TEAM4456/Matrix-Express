@@ -30,7 +30,7 @@ var execute = async function(type, express, req, res, libs)
     var request = require("request-promise-native");
     var apikey = libs["/consts"].apikey;
     var options = {
-        uri: 'https://www.thebluealliance.com/api/v3/team/'+teamtag,
+        uri: 'https://www.thebluealliance.com/api/v3'+teamtag,
         headers: {
             'User-Agent': 'Scouting-Backend',
             'X-TBA-Auth-Key': apikey
