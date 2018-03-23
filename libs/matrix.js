@@ -1,5 +1,6 @@
 var fs = require('fs');
 var config = require('../config.json');
+var bodyParser = require('body-parser');
 var routes = {};
 var libs = {};
 var direxists = function(path)
@@ -28,6 +29,8 @@ var initMatrix = function(app)
     routes = load("./routes", app);
     routes["/"] = routes["/"+config.root]
     delete routes["/"+config.root];
+    app.use(bodyParser.urlencoded({ extended: false }));
+    app.use(bodyParser.json());
     Object.keys(routes).forEach(route =>
     {
         app.route(route)
